@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detajet e Produktit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .product-page{
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            display: flex;
+            gap: 40px;
+        }
+        .product-page img{
+            width: 300px;
+            border-radius: 10px;
+        }
+        @media (max-width:600px){
+            .product-page{
+                flex-direction: column;
+                text-align: center;
+            }
+            .product-page img{
+                margin: auto;
+            }
+        }
+    </style>
+
+
+</head>
+<body>
+
+    <div class="product-page" id="product-details">
+
+        </div>
+
+        <script>
+    const product = JSON.parse(localStorage.getItem("selectedProduct"));
+    if(product) {
+        document.getElementById("product-details").innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <div>
+                <h1>${product.name}</h1>
+                <p style="color: var(--primary-color); font-size: 24px; font-weight: bold;">${product.price}€</p>
+                <p style="margin: 20px 0; line-height: 1.6;">${product.description || "Nuk ka përshkrim për këtë produkt."}</p>
+                <button class="btn-add" onclick="history.back()">Kthehu mbrapa</button>
+            </div>
+        `;
+    }
+</script>
+    
+</body>
+</html>
