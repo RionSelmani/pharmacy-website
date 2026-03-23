@@ -4,7 +4,7 @@ const products = [
         name: "Vitamin C - 1000mg",
         price: 10,
         category: "Vitamina",
-        image: "img/vitaminc-swanson.jpg", // VENDOS LINKUN E FOTOS TËNDE KËTU
+        image: "vitaminc-swanson.jpg", // VENDOS LINKUN E FOTOS TËNDE KËTU
         description: "Mbron sistemin imunitar dhe ju jep energji."
     },
     {
