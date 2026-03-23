@@ -190,7 +190,7 @@ function sendToWhatsApp() {
 
     // 5. NUMRI YT I TELEFONIT (Vendose numrin tënd këtu)
     // Format: 38344111222 (pa +, pa 00)
-    const nr_tel = "+38349406361"; 
+    const nr_tel = "38349406361"; 
 
     // 6. Hapim WhatsApp-in
     const linku = `https://wa.me/${nr_tel}?text=${mesazhi}`;
