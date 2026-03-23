@@ -19,7 +19,7 @@ body{
 }
 body {
     /* 1. Vendosja e fotos */
-    background-image: url('background-foto.jpg'); /* Sigurohu që emri i fotos të jetë fiks si ky */
+    background-image: url('img/background-foto.jpg'); /* Sigurohu që emri i fotos të jetë fiks si ky */
     
     /* 2. Dimensionet profesionale */
     background-size: cover;          /* E mbush gjithë ekranin pa u deformuar */
