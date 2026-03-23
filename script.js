@@ -82,16 +82,65 @@ function closeCart() {
 
 function renderCart() {
     const cartItems = document.getElementById("cart-items");
+    const totalElement = document.getElementById("total");
     let total = 0;
+    
+    // Nëse shporta është bosh
+    if (cart.length === 0) {
+        cartItems.innerHTML = `
+            <div style="text-align:center; padding: 50px 20px;">
+                <p style="color: #888; font-size: 16px;">Shporta juaj është momentalisht bosh.</p>
+            </div>`;
+        totalElement.innerHTML = "Totali: 0€";
+        return;
+    }
+
+    // Gjenerimi i produkteve me foto dhe dizajn të ri
     cartItems.innerHTML = cart.map((item, index) => {
         total += item.price;
-        return `<div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-            ${item.name} <span>${item.price}€ <button onclick="removeItem(${index})">❌</button></span>
-        </div>`;
+        return `
+            <div class="cart-card">
+                <div class="cart-card-image">
+                    <img src="img/${item.image}" alt="${item.name}">
+                </div>
+                <div class="cart-card-details">
+                    <h4>${item.name}</h4>
+                    <p class="cart-card-price">${item.price}€</p>
+                </div>
+                <button onclick="removeItem(${index})" class="cart-card-remove" title="Hiqe">
+                    ✕
+                </button>
+            </div>
+        `;
     }).join('');
-    document.getElementById("total").innerText = `Totali: ${total}€`;
+    
+    // Këtu shtojmë Totali + Butonin e WhatsApp
+    totalElement.innerHTML = `
+        <div style="padding: 20px; border-top: 2px solid #eee; margin-top: 10px;">
+            <h3 style="margin-bottom: 15px; font-size: 20px;">Totali: ${total}€</h3>
+            <button onclick="sendToWhatsApp()" class="btn-whatsapp-order" style="width:100%; background-color:#25d366; color:white; border:none; padding:15px; border-radius:10px; font-weight:bold; cursor:pointer; font-size: 16px; display:flex; align-items:center; justify-content:center; gap:10px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);">
+                Dërgo Porosinë në WhatsApp 💬
+            </button>
+        </div>
+    `;
 }
 
+// Funksioni që dërgon mesazhin në WhatsApp
+function sendToWhatsApp() {
+    if (cart.length === 0) return;
+
+    let nr_tel = "38344123456"; // NDRYSHO KËTË: Vendos numrin tënd këtu
+    let mesazhi = "🌟 *POROSI E RE NGA WEBSITE* 🌟%0A%0A";
+    
+    cart.forEach((item, index) => {
+        mesazhi += `${index + 1}. *${item.name}* - ${item.price}€%0A`;
+    });
+
+    let totali = cart.reduce((sum, item) => sum + item.price, 0);
+    mesazhi += `%0A💰 *TOTALI: ${totali}€*%0A%0AJu lutem konfirmoni porosinë!`;
+
+    window.open(`https://wa.me/${nr_tel}?text=${mesazhi}`, '_blank');
+}
 function removeItem(index) {
     cart.splice(index, 1);
     updateCart();
@@ -113,4 +162,37 @@ window.onclick = function(event) {
     if (event.target == modal) {
         closeCart();
     }
+}
+
+function sendToWhatsApp() {
+    // 1. Kontrollojmë nëse shporta është bosh
+    if (cart.length === 0) {
+        alert("Shporta juaj është bosh!");
+        return;
+    }
+
+    // 2. Krijojmë fillimin e mesazhit
+    let mesazhi = "🌟 *POROSI E RE NGA WEBSITE* 🌟%0A%0A";
+    mesazhi += "Përshëndetje, dua të porosis këto produkte:%0A";
+    mesazhi += "--------------------------------------%0A";
+
+    // 3. Shtojmë produktet një nga një
+    let totali = 0;
+    cart.forEach((item, index) => {
+        mesazhi += `${index + 1}. *${item.name}* - ${item.price}€%0A`;
+        totali += item.price;
+    });
+
+    // 4. Shtojmë totalin dhe një mbyllje
+    mesazhi += "--------------------------------------%0A";
+    mesazhi += `💰 *TOTALI PËR PAGESË: ${totali}€*%0A%0A`;
+    mesazhi += "Ju lutem më konfirmoni porosinë! 🙏";
+
+    // 5. NUMRI YT I TELEFONIT (Vendose numrin tënd këtu)
+    // Format: 38344111222 (pa +, pa 00)
+    const nr_tel = "+38349406361"; 
+
+    // 6. Hapim WhatsApp-in
+    const linku = `https://wa.me/${nr_tel}?text=${mesazhi}`;
+    window.open(linku, '_blank');
 }
