@@ -145,15 +145,95 @@ body {
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(5px);
 }
-.modal-content{
-    background-color: #fefefe;
-    width: 90%;
-    border: 1px solid #888;
-    max-width: 450px;
-    margin: 10% auto;
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5); /* Ngjyra e errët mbrapa */
+    backdrop-filter: blur(8px); /* Ky bën efektin BLUR të uebfaqes */
+}
+
+.modal-content {
+    background-color: white;
+    margin-left: auto; /* E shtyn në të djathtë */
+    width: 350px; /* Gjerësia e shportës */
+    height: 100%;
     padding: 20px;
-    border-radius: 15px;
-    position: relative;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hapësira kryesore e artikujve në shportë */
+#cart-items {
+    padding: 10px;
+    max-height: 70vh; /* Që shporta të mos bëhet shumë e gjatë */
+    overflow-y: auto;
+}
+
+/* Dizajni i secilit produkt (Karta) */
+.cart-card {
+    display: flex;
+    align-items: center;
+    padding: 20px 0; /* Hapësirë e mjaftueshme lart e poshtë */
+    border-bottom: 1px solid #eee; /* Vija ndarëse */
+    transition: background 0.3s;
+}
+
+.cart-card:last-child {
+    border-bottom: none; /* Hiqet vija për produktin e fundit */
+}
+
+/* Stilimi i fotos */
+.cart-card-image img {
+    width: 80px; /* Foto më e madhe */
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Hapësira për emrin dhe çmimin */
+.cart-card-details {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.cart-card-details h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.cart-card-price {
+    margin: 5px 0 0;
+    font-size: 15px;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* Butoni për heqje */
+.cart-card-remove {
+    background: #f8f8f8;
+    border: none;
+    color: #ff4d4d;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.cart-card-remove:hover {
+    background: #ff4d4d;
+    color: white;
 }
 .close{
     color: #aaa;
@@ -181,16 +261,4 @@ body {
 .modal-content h3 {
     color: #000000;
     margin-bottom: 15px;
-}
-
-/* Edhe për listën e produkteve brenda shportës */
-#cart-items {
-    color: #000000;
-}
-
-/* Edhe për totalin në fund */
-#total {
-    color: #000000;
-    font-weight: bold;
-    margin-top: 15px;
 }
